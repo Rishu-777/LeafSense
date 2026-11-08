@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+LeafSense Engine
+{% endblock pagetitle %}
+
+{% block body %}
+<section class="engine-hero py-5">
+    <div class="container">
+        <div class="engine-hero__wrapper bg-white rounded-4 shadow-lg p-4 p-lg-5">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <span class="tag-pill mb-3 d-inline-block">LeafSense Engine</span>
+                    <h1 class="fw-bold mb-3">Diagnose North Indian crops with region‑aware guidance.</h1>
+                    <p class="text-muted mb-4">
+                        Tuned for North Indian conditions (Kharif/Rabi), LeafSense considers monsoon humidity, fog/frost,
+                        and local disease pressure (e.g., wheat yellow rust, potato late blight, mustard alternaria) to
+                        provide practical, timely actions.
+                    </p>
+                    <div class="d-flex flex-wrap engine-kpi-group">
+                        <div class="engine-kpi">
+                            <span class="kpi-icon"><i class="icon ion-leaf"></i></span>
+                            <div class="d-flex flex-column">
+                                <span>15+</span>
+                                <small>North India crops</small>
+                            </div>
+                        </div>
+                        <div class="engine-kpi">
+                            <span class="kpi-icon"><i class="icon ion-speedometer"></i></span>
+                            <div class="d-flex flex-column">
+                                <span>&lt; 3s</span>
+                                <small>Avg. inference</small>
+                            </div>
+                        </div>
+                        <div class="engine-kpi">
+                            <span class="kpi-icon"><i class="icon ion-stats-bars"></i></span>
+                            <div class="d-flex flex-column">
+                                <span>92%</span>
+                                <small>Top-1 accuracy</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="engine-highlight bg-white border rounded-4 shadow-sm p-4">
+                        <h5 class="mb-3">Confidence snapshot</h5>
+                        <p class="text-muted mb-3">LeafSense analyses pigment variance, venation, and texture to estimate
+                            disease likelihood.</p>
+                        <div class="confidence-meter">
+                            <div class="confidence-meter__bar" style="width: 86%;"></div>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted small mt-2">
+                            <span>Low confidence</span>
+                            <span>High confidence</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="engine-workspace py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="engine-card h-100 bg-white rounded-4 shadow-lg p-4 p-lg-5">
+                    <div class="d-flex justify-content-between flex-wrap gap-3">
+                        <h5 class="mb-0">How LeafSense guides every scan</h5>
+                        <span class="engine-pill">Adaptive retraining enabled</span>
+                    </div>
+                    <div class="engine-steps">
+                        <div class="engine-step">
+                            <span class="engine-step__icon"><i class="icon ion-ios-camera-outline"></i></span>
+                            <div>
+                                <h6>Upload or capture</h6>
+                                <p class="text-muted mb-0">Use natural morning light; wipe dew or dust. Keep the leaf flat
+                                    and fill most of the frame.</p>
+                            </div>
+                        </div>
+                        <div class="engine-step">
+                            <span class="engine-step__icon"><i class="icon ion-erlenmeyer-flask"></i></span>
+                            <div>
+                                <h6>Analyse signatures</h6>
+                                <p class="text-muted mb-0">LeafSense compares pixel patterns with North India disease
+                                    libraries across Kharif/Rabi stages and weather windows.</p>
+                            </div>
+                        </div>
+                        <div class="engine-step">
+                            <span class="engine-step__icon"><i class="icon ion-clipboard"></i></span>
+                            <div>
+                                <h6>Compare solutions</h6>
+                                <p class="text-muted mb-0">See cultural practices, spray timings, and rotations suitable for
+                                    North Indian agronomy and regulations.</p>
+                            </div>
+                        </div>
+                        <div class="engine-step">
+                            <span class="engine-step__icon"><i class="icon ion-loop"></i></span>
+                            <div>
+                                <h6>Act &amp; monitor</h6>
+                                <p class="text-muted mb-0">Re‑scan after 5–7 days. Adjust for cold waves/fog or post‑rain
+                                    irrigation to prevent relapse.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="engine-footnote">
+                        <span class="engine-pill engine-pill--ghost">Batch mode coming soon</span>
+                        <span class="engine-pill engine-pill--ghost">Weather overlays in beta</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="engine-card upload-card h-100 bg-white rounded-4 shadow-lg p-4 p-lg-5">
+                    <div class="upload-illustration mb-4">
+                        <span aria-hidden="true">🌿</span>
+                    </div>
+                    <form action="/submit" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-4">
+                        <div class="file-upload">
+                            <input type="file" id="actual-btn" name="image" accept="image/*" hidden>
+                            <div class="d-flex flex-wrap gap-3">
+                                <label for="actual-btn" class="custom-file-label mb-0">
+                                    <i class="icon ion-ios-cloud-upload-outline"></i>
+                                    <span>Upload leaf image</span>
+                                </label>
+                                <button type="button" id="camera-btn" class="btn btn-outline-success btn-pill">
+                                    <i class="icon ion-ios-camera-outline me-1"></i>
+                                    Open camera
+                                </button>
+                            </div>
+                            <span id="file-chosen" class="file-chosen">No file chosen</span>
+                        </div>
+                        <div id="camera-container" class="camera-container" style="display: none;">
+                            <video id="camera-feed" class="w-100 rounded-4 shadow-sm" autoplay muted playsinline></video>
+                            <div class="d-flex gap-3 mt-3 flex-wrap">
+                                <button type="button" id="capture-btn" class="btn btn-primary-green btn-pill">Capture
+                                    photo</button>
+                                <button type="button" id="close-camera" class="btn btn-outline-success btn-pill">Close
+                                    camera</button>
+                            </div>
+                        </div>
+                        <img id="preview" src="#" alt="Camera preview" class="img-fluid rounded-4 shadow-sm"
+                            style="display: none;">
+                        <ul class="engine-checklist">
+                            <li>Prefer morning shots; avoid harsh noon glare.</li>
+                            <li>Wipe dew; remove soil/dust for accurate texture.</li>
+                            <li>In fog/cold wave, take photos indoors near window light.</li>
+                            <li>After rainfall/irrigation, wait ~1–2 hours for excess moisture to dry.</li>
+                        </ul>
+                        <button type="submit" class="btn btn-primary-green btn-pill">Run diagnosis</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const fileInput = document.getElementById('actual-btn');
+    const fileChosen = document.getElementById('file-chosen');
+    const cameraContainer = document.getElementById('camera-container');
+    const cameraBtn = document.getElementById('camera-btn');
+    const closeCameraBtn = document.getElementById('close-camera');
+    const captureBtn = document.getElementById('capture-btn');
+    const cameraFeed = document.getElementById('camera-feed');
+    const preview = document.getElementById('preview');
+
+    let cameraStream = null;
+
+    const updateFileText = (text) => {
+        fileChosen.textContent = text;
+    };
+
+    const stopCamera = () => {
+        if (cameraStream) {
+            cameraStream.getTracks().forEach((track) => track.stop());
+            cameraStream = null;
+        }
+        cameraFeed.srcObject = null;
+    };
+
+    const showPreview = (src) => {
+        preview.src = src;
+        preview.style.display = 'block';
+    };
+
+    const hidePreview = () => {
+        preview.src = '#';
+        preview.style.display = 'none';
+    };
+
+    if (fileInput) {
+        fileInput.addEventListener('change', (event) => {
+            const [file] = event.target.files;
+            if (file) {
+                updateFileText(file.name);
+                const reader = new FileReader();
+                reader.onload = (e) => showPreview(e.target.result);
+                reader.readAsDataURL(file);
+            } else {
+                updateFileText('No file chosen');
+                hidePreview();
+            }
+        });
+    }
+
+    if (cameraBtn) {
+        cameraBtn.addEventListener('click', async () => {
+            if (!cameraContainer) {
+                return;
+            }
+            cameraContainer.style.display = 'block';
+            hidePreview();
+            updateFileText('Camera live…');
+
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                cameraFeed.srcObject = cameraStream;
+            } catch (error) {
+                console.error('Error accessing the camera: ', error);
+                updateFileText('Camera unavailable');
+                cameraContainer.style.display = 'none';
+            }
+        });
+    }
+
+    if (closeCameraBtn) {
+        closeCameraBtn.addEventListener('click', () => {
+            if (!cameraContainer) {
+                return;
+            }
+            stopCamera();
+            cameraContainer.style.display = 'none';
+            updateFileText('No file chosen');
+        });
+    }
+
+    if (captureBtn) {
+        captureBtn.addEventListener('click', () => {
+            if (!cameraStream) {
+                return;
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = cameraFeed.videoWidth || 640;
+            canvas.height = cameraFeed.videoHeight || 480;
+            const context = canvas.getContext('2d');
+            context.drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    return;
+                }
+
+                const capturedFile = new File([blob], `leaf-${Date.now()}.jpg`, { type: blob.type });
+
+                if (typeof DataTransfer !== 'undefined') {
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(capturedFile);
+                    fileInput.files = dataTransfer.files;
+
+                    const dataUrl = URL.createObjectURL(blob);
+                    showPreview(dataUrl);
+                    updateFileText(capturedFile.name);
+                } else {
+                    updateFileText('Capture saved locally – please download and upload manually.');
+                    const reader = new FileReader();
+                    reader.onload = (e) => showPreview(e.target.result);
+                    reader.readAsDataURL(capturedFile);
+                }
+
+                stopCamera();
+                if (cameraContainer) {
+                    cameraContainer.style.display = 'none';
+                }
+            }, 'image/jpeg', 0.92);
+        });
+    }
+
+    window.addEventListener('beforeunload', stopCamera);
+</script>
+
+{% endblock body %}

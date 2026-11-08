@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+Plant Disease Detection
+{% endblock pagetitle %}
+{% block body %}
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <span class="tag-pill mb-3">AI powered agritech</span>
+        <h1>LeafSense diagnoses plant stress in seconds.</h1>
+        <p>
+          LeafSense combines state-of-the-art computer vision with agronomy insights so you can
+          spot issues early, protect yields, and grow with confidence on any device.
+        </p>
+        <div class="hero-cta d-flex flex-column flex-sm-row gap-3">
+          <a class="btn btn-primary-green btn-pill" href="/index">Launch the LeafSense Engine</a>
+          <a class="btn btn-outline-success btn-pill" href="/market">Explore Supplements</a>
+        </div>
+        <div class="mt-4 d-flex flex-wrap align-items-center gap-3 text-muted small">
+          <div><strong>15+</strong> crops covered</div>
+          <div><strong>Secured</strong> uploads</div>
+          <div><strong>Actionable</strong> remedies</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="feature-card shadow-lift">
+          <h5 class="mb-3">Why early detection matters</h5>
+          <p class="mb-4">
+            Detecting plant diseases before symptoms spread lets you apply targeted treatments, reduce chemical usage,
+            and save entire harvest cycles. PlantGuard AI brings that expert eye to your field instantly.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <div class="feature-grid__item">
+              <span class="feature-grid__label">Prevent loss</span>
+            </div>
+            <div class="feature-grid__item">
+              <span class="feature-grid__label">Plan treatments</span>
+            </div>
+            <div class="feature-grid__item">
+              <span class="feature-grid__label">Track recovery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Supported fruits &amp; vegetables</h2>
+      <p>
+        Upload a clear photo of a leaf to diagnose diseases across our growing catalog of crops. We keep improving the
+        model with new training data every season.
+      </p>
+    </div>
+    <div class="feature-grid">
+      {% set crops = [
+        ('🌾', 'Wheat'),
+        ('🌾', 'Paddy (Rice)'),
+        ('🌽', 'Maize'),
+        ('🌿', 'Mustard'),
+        ('🥔', 'Potato'),
+        ('🍅', 'Tomato'),
+        ('🧅', 'Onion'),
+        ('🌿', 'Sugarcane'),
+        ('🧵', 'Cotton'),
+        ('🌿', 'Chickpea (Chana)'),
+        ('🥦', 'Cauliflower'),
+        ('🍆', 'Brinjal (Eggplant)'),
+        ('🌿', 'Pea (Matar)')
+      ] %}
+      {% for crop in crops %}
+      <div class="feature-grid__item feature-grid__item--minimal">
+        <span class="feature-grid__icon" aria-hidden="true">{{ crop[0] }}</span>
+        <span class="feature-grid__label">{{ crop[1] }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="content-section pt-0 pb-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="feature-card">
+          <h5>Built for every grower</h5>
+          <p class="text-muted">
+            Whether you manage a greenhouse, a small vegetable patch, or hundreds of acres, LeafSense adapts to your
+            workflow on desktop and mobile.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="feature-card">
+          <h5>Actionable insights</h5>
+          <p class="text-muted">
+            Get quick treatment suggestions, cultural practices, and supplement recommendations from our curated partners.
+            partners.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="feature-card">
+          <h5>Always improving</h5>
+          <p class="text-muted">
+            LeafSense continuously improves with new field images and agronomist feedback so detection stays sharp
+            season after season.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body %}

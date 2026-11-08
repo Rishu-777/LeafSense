@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.pt
+*.pth
+*.ckpt
+.DS_Store
+Thumbs.db
+Flask Deployed App/static/uploads/*
+!Flask Deployed App/static/uploads/Readme.md
+.ipynb_checkpoints/
