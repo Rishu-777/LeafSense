@@ -27,7 +27,3 @@ You can also use the downloaded model in the `Model` section with Jupyter Notebo
 ## Testing images
 
 If you do not have leaf images, use samples in the `test_images` folder. Each image has a corresponding disease name so you can check whether the model is working.
-
-## Blog
-
-[Plant Disease Detection Using Convolutional Neural Networks with PyTorch](https://medium.com/analytics-vidhya/plant-disease-detection-using-convolutional-neural-networks-and-pytorch-87c00c54c88f)
